@@ -1,0 +1,27 @@
+
+s
+java:S3740Ö"/Provide the parametrized type for this generic.(Û•¶¢8çöúÅƒ2J$0d20a32b-4f7d-4531-9e89-3907375b3a49
+ž
+java:S1104)"\Make USER_LOGIN_STATE a static final constant or non-public and provide accessors if needed.(†ö§8‚‡¸Åƒ2J$634b14cb-f611-44d2-9513-3c7014cd19a3
+œ	java:S116)"[Rename this field "USER_LOGIN_STATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†ö§8”‡¸Åƒ2J$ce59da46-f51e-4a88-988c-ba447920d46a
+u
+java:S11351"2Complete the task associated to this TODO comment.(…ïœ†8˜‡¸Åƒ2J$e25dc4a5-4626-488d-93c4-ffd711bf3df8
+r
+java:S5869?"*Remove duplicates in this character class.(”’ø¨ùÿÿÿÿ8›‡¸Åƒ2J$f7aebba7-2149-477f-8a31-ef400c169e36
+x
+java:S6035?"0Replace this alternation with a character class.(”’ø¨ùÿÿÿÿ8œ‡¸Åƒ2J$58f4526e-0426-4d74-8628-aad85793473c
+}
+java:S6397?"5Replace this character class by the character itself.(”’ø¨ùÿÿÿÿ8œ‡¸Åƒ2J$b71e6eca-8645-4aea-a7c1-43ad989be75d
+u
+java:S1135j"2Complete the task associated to this TODO comment.(’‡ÆÚ8¡‡¸Åƒ2J$abb2134f-f84f-4df6-a9c7-af30a53b8ebd
+r
+java:S5869t"*Remove duplicates in this character class.(”’ø¨ùÿÿÿÿ8¢‡¸Åƒ2J$da4b7e44-5a5b-4632-981d-305b892ddd34
+x
+java:S6035t"0Replace this alternation with a character class.(”’ø¨ùÿÿÿÿ8£‡¸Åƒ2J$2747d5c1-58a7-4815-8879-f3c51d59bf8b
+}
+java:S6397t"5Replace this character class by the character itself.(”’ø¨ùÿÿÿÿ8¦‡¸Åƒ2J$9a8f393f-8ba6-4fdc-80ca-4a5f3f590fc7
+„	java:S125Æ"<This block of commented-out lines of code should be removed.(÷Þöûÿÿÿÿ8å«úÅƒ2J$cb54ed1f-491e-4efd-ad26-a7163f0c0ada
+v
+java:S1481×"-Remove this unused "starTime" local variable.(›ÅòÛþÿÿÿÿ8’—Æƒ2J$1fb5484b-29da-45e7-8931-e626e35fadaf
+¾
+java:S6204ç"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ðÁÜÖ8ëªûÅƒ2J$56994a74-fc4f-47b2-a436-9756bde0a9f3
