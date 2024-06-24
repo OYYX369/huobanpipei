@@ -2,6 +2,7 @@ package com.yupi.yupao.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.yupi.yupao.common.BaseResponse;
 import com.yupi.yupao.common.ErrorCode;
 import com.yupi.yupao.common.ResultUtils;
@@ -29,11 +30,43 @@ import static com.yupi.yupao.contant.UserConstant.USER_LOGIN_STATE;
 @RestController
 @RequestMapping("/user")
 //@CrossOrigin(origins = "http://43.136.88.58" ,allowCredentials = "true")
+@CrossOrigin
 
 public class UserController {
 
     @Resource
     private UserService userService;
+
+
+    @GetMapping("/search")
+    public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request) {
+        if (!isAdmin(request)) {
+//            return ResultUtils.error(ErrorCode.NO_AUTH_ERROR);
+            throw new BusinessException(ErrorCode.NO_AUTH, "缺少管理员权限");
+        }
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(username)) {
+            queryWrapper.like("username", username);
+        }
+        List<User> userList = userService.list();
+        List<User> collect = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
+        return ResultUtils.success(collect);
+    }
+
+    /**
+     * 根据标签列表搜索用户的接口。
+     * @param tagNameList 用户的标签列表，通过请求参数传递。此参数不是必需的，但如果未提供，则抛出业务异常。
+     * @return 返回符合标签搜索条件的用户列表的响应实体。
+     */
+    @GetMapping("/search/tags")
+    //前端传来的是tag列表参数
+    public BaseResponse<List<User>> searchUsersByTags(@RequestParam(required = false) List<String> tagNameList){
+        if(CollectionUtils.isEmpty(tagNameList)){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        List<User> userList = userService.searchUsersByTagsSQL(tagNameList);
+        return ResultUtils.success(userList);
+    }
 
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
@@ -104,20 +137,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/search")
-    public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request) {
-        if (!isAdmin(request)) {
-//            return ResultUtils.error(ErrorCode.NO_AUTH_ERROR);
-            throw new BusinessException(ErrorCode.NO_AUTH, "缺少管理员权限");
-        }
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(username)) {
-            queryWrapper.like("username", username);
-        }
-        List<User> userList = userService.list();
-        List<User> collect = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
-        return ResultUtils.success(collect);
-    }
+
 
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteUser(@RequestBody Long id , HttpServletRequest request) {

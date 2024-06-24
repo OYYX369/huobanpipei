@@ -58,6 +58,11 @@ public class User implements Serializable {
      * 电话
      */
     private String phone;
+    /**
+     * 个人简介
+     */
+    private String profile;
+
 
     /**
      * 创建时间

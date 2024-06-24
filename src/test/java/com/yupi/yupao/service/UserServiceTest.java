@@ -22,8 +22,8 @@ class UserServiceTest {
     @Test
     void searchUsersByTags() {
         //括号里面 字符串转换为 字符串集合
-        List<String> tagNameList= Arrays.asList("java","python");
-        List<User> userList = userService.searchUsersByTags(tagNameList);
+        List<String> tagNameList= Arrays.asList("java","c++");
+        List<User> userList = userService.searchUsersByTagsSQL(tagNameList);
         Assertions.assertNotNull(userList);
     }
 

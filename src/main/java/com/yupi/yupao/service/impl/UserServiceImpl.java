@@ -17,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
         implements UserService {
     /**
      * 盐值混淆密码
@@ -188,29 +189,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public List<User> searchUsersByTags(List<String> tagNameList) {
 
-        // 检查标签列表是否为空
+        //是否为空
         if (CollectionUtils.isEmpty(tagNameList)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        //1.先查询所有用户
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        long starTime = System.currentTimeMillis();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        //查询所有的用户
         List<User> userList = userMapper.selectList(queryWrapper);
         Gson gson = new Gson();
-        //2.判断内存中是否包含要求的标签
+        //在内存中判断是否符合包含的标签
+        //把每一个用户的tags转成java对象然后判断传进来的在不在这个用户的标签里
+        // 不在就跳过，在就存在list里面，最后得到的就是有相关标签的用户
         return userList.stream().filter(user -> {
-            String tagstr = user.getTags();
-            if (StringUtils.isBlank(tagstr)) {
+            //反序列化，把json转换成java对象
+            String tagsStr = user.getTags();
+            if (StringUtils.isBlank(tagsStr)) {
                 return false;
             }
-            Set<String> tempTagNameSet = gson.fromJson(tagstr, new TypeToken<Set<String>>() {
-            }.getType());
+            //集合在o(1)的时间内判断是否包含一个集合
+            Set<String> tempTagNameSet = gson.fromJson(tagsStr, new TypeToken<Set<String>>() {
+            }.getType());   //小技巧，new 一个TypeToken然后.getType得到泛型的类型
+            tempTagNameSet = java.util.Optional.ofNullable(tempTagNameSet).orElse((new HashSet<>()));
             for (String tagName : tagNameList) {
-                if (!tempTagNameSet.contains(tagName)) {
-                    return false;
+                //如果每个用户的标签包含要查的就true
+                //tagNameList传来的
+                if (tempTagNameSet.contains(tagName)) {
+                    return true;
                 }
+                //一个都不包含就是false
             }
-            return true;
+            return false;
         }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
@@ -223,7 +231,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         //拼接tag
         // like '%Java%' and like '%Python%'
         for (String tagList : tagNameList) {
-            queryWrapper = queryWrapper.like("tags", tagList);
+            queryWrapper = queryWrapper.or().like("tags", tagList);
         }
         List<User> userList = userMapper.selectList(queryWrapper);
         return  userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
