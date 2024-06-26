@@ -1,4 +1,11 @@
 spring:
+  # DataSource Config
+  datasource:
+    url: jdbc:mysql://localhost:3306/huoban
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+
   springdoc:
     swagger-ui:
       path: /swagger-ui.html
@@ -10,6 +17,8 @@ spring:
       - group: 'default'
         paths-to-match: '/**'
         packages-to-scan: com.yupi.yupao.controller
+
+
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
@@ -17,19 +26,25 @@ spring:
     active: dev
   application:
     name: yupao-backend-backend
-  # DataSource Config
-  datasource:
-    url: jdbc:mysql://localhost:3306/huoban
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
+
+  #redis配置
   # session 失效时间
   session:
-    timeout: 86400
+    redis:
+      repository-type: default
+
+  data:
+    redis:
+      port: 6379
+      host: localhost
+      database: 0
 
 server:
   port: 8080
   servlet:
+    session:
+      cookie:
+        domain: localhost
     context-path: /api
 mybatis-plus:
   configuration:

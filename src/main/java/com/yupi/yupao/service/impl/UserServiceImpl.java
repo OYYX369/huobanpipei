@@ -11,6 +11,7 @@ import com.yupi.yupao.model.domain.User;
 import com.yupi.yupao.mapper.UserMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -23,6 +24,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static com.yupi.yupao.contant.UserConstant.ADMIN_ROLE;
 
 
 /**
@@ -105,19 +108,19 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
         //1.校验
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             // TODO 修改为自定义异常
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号或密码不能为空");
         }
         if (userAccount.length() < 4) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号长度不足4位");
         }
         if (userPassword.length() < 8) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "密码长度不足8位");
         }
         //账户不能包含特殊字符
         String validPattern = "[ _`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\\n|\\r|\\t";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
         if (matcher.find()) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号包含特殊字符");
         }
 
         //加密
@@ -137,6 +140,7 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         //  3.用户脱敏
         User safetyUser = getSafetyUser(user);
+
         //   4.记录用户的登录状态
         request.getSession().setAttribute(USER_LOGIN_STATE, safetyUser);
 
@@ -164,6 +168,7 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
         safetyUser.setGender(originUser.getGender());
         safetyUser.setEmail(originUser.getEmail());
         safetyUser.setPhone(originUser.getPhone());
+        safetyUser.setProfile(originUser.getProfile());
         safetyUser.setUserRole(originUser.getUserRole());
         safetyUser.setUserStatus(originUser.getUserStatus());
         safetyUser.setCreateTime(originUser.getCreateTime());
@@ -222,6 +227,74 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
         }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
+    @Override
+    public User getLoginUser(HttpServletRequest request) {
+        if(request == null){
+            return null;
+        }
+        Object object =request.getSession().getAttribute(USER_LOGIN_STATE);
+        if(object == null)
+        {
+            throw new BusinessException(ErrorCode.NO_AUTH);
+        }
+        return (User) object;
+    }
+
+    /**
+     * 更新用户信息。
+     * 该方法用于根据提供的用户对象更新用户数据。
+     * 它首先检查用户ID是否有效，然后根据用户的权限（管理员或非管理员）
+     * 决定是否可以更新所请求的用户数据。
+     * @param user 封装了要更新的用户信息的User对象。
+     * @param loginUser 当前登录的User对象，用于进行权限验证。
+     * @return 更新操作影响的数据库记录数。通常返回1表示更新成功，返回0表示未进行更新。
+     * @throws BusinessException 如果用户ID无效、登录用户无权更新其他用户信息、或指定ID的用户不存在时抛出。
+     */
+    @Override
+    public int updateUser(User user,User loginUser) {
+        long userId = user.getId();
+        if(userId <= 0 )
+        {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 如果是管理员， 允许 更新 任意  用户
+        //如果不是管理员，只允许更新 自己 信息
+        if(!isAdmin(loginUser) && userId !=loginUser.getId()){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User oldUser = userMapper.selectById(userId);
+        if (oldUser == null )
+        {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        return userMapper.updateById(user);
+    }
+
+
+
+    public  boolean isAdmin(HttpServletRequest request) {
+        // 从会话中获取用户对象
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User user = (User) userObj;
+        if(user == null || user.getUserRole() != ADMIN_ROLE) {
+            return false;
+        }
+        return  true;
+    }
+    /**
+     * 判断当前操作用户是否为管理员。
+     * @param loginUser 用户对象
+     * @return 如果当前用户为管理员，则返回true；否则返回false。
+     */
+    @Override
+    public boolean isAdmin(User loginUser) {
+        // 如果用户为空或者用户角色不是管理员，则返回false
+        if (loginUser == null || loginUser.getUserRole() != ADMIN_ROLE) {
+            return false;
+        }
+        // 否则，用户是管理员，返回true
+        return true;
+    }
     @Deprecated
     public List<User> searchUsersByTagsSQL(List<String> tagNameList){
         if (CollectionUtils.isEmpty(tagNameList)){

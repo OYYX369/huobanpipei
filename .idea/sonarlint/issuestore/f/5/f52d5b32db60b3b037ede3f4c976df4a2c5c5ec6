@@ -1,9 +1,9 @@
 
-~	java:S125,"<This block of commented-out lines of code should be removed.(°İ“÷8ÈÂ‚Ö„2J$d10259d8-749d-462a-82cc-cd6f1f088fc5
+~	java:S125-"<This block of commented-out lines of code should be removed.(°İ“÷8ÈÂ‚Ö„2J$743dec4e-a370-4a95-a9b9-2d1e83100371
 Â
-java:S62044"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(«¨•ïşÿÿÿÿ8ÊÂ‚Ö„2J$257814b2-c386-47eb-901f-75255f2ed0db
-ƒ	java:S125J"<This block of commented-out lines of code should be removed.(äÚ«Ãÿÿÿÿÿ8ÌÂ‚Ö„2J$26367964-9da9-4c7d-a89b-b374bf5d2ab7
+java:S62045"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(«¨•ïşÿÿÿÿ8¦ºÄ•…2J$01629bd0-62cc-4b0c-9a29-bba394da8498
+ƒ	java:S125K"<This block of commented-out lines of code should be removed.(äÚ«Ãÿÿÿÿÿ8¼ÜÆü„2J$857b75a1-63cb-4579-89c0-7fc8b9240f73
 z
-java:S1135z"2Complete the task associated to this TODO comment.(öÔå«úÿÿÿÿ8ĞÂ‚Ö„2J$3e74fb2e-05ae-4660-ba40-fd9fce8483d0
-…
-java:S1126"AReplace this if-then-else statement by a single return statement.(ˆÿø¹8ÔÂ‚Ö„2J$c77d905d-ecf4-49eb-b3b1-74a1b878ee57
+java:S1135{"2Complete the task associated to this TODO comment.(öÔå«úÿÿÿÿ8ÀÜÆü„2J$db0e198d-3e6c-4d3e-81d0-f6c09db92718
+“
+java:S1128"KRemove this unused import 'com.yupi.yupao.contant.UserConstant.ADMIN_ROLE'.(í€ŒÂÿÿÿÿÿ8°ºÄ•…2J$54e35cef-f857-41d9-b6a4-5b9a2f847f26

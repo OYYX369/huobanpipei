@@ -116,11 +116,11 @@ w
 G.idea/sonarlint/issuestore/0/4/04aadee31bf2754b77545c1ac8fff39d2e09839a,d\d\dd755e1c1de37301743e09611a09b8bfe5de7526
 ;
 sql/all.sql,2\b\2b2074e8b08f4860d0df2af3e3be13559ffa9a76
-`
-0src/main/java/generator/service/UserService.java,d\c\dc00e549c3ad5883a177a8e462e30e5f8f91a546
-i
-9src/main/java/generator/service/impl/UserServiceImpl.java,9\5\95c0026da3f114a70f1b46354de6c2935b08bdc1
-^
-.src/main/java/generator/mapper/UserMapper.java,4\2\427f4d6f7dccb0bc7ddbf16f19ab0470e9b2e83c
-X
-(src/main/java/generator/domain/User.java,6\6\6696a43918ae0600e4dddaed6093f4828adf279b
+f
+6src/main/java/com/yupi/yupao/config/SwaggerConfig.java,a\8\a89ddd7c8dc988d557950ff4a6485aacac8ba713
+w
+G.idea/sonarlint/issuestore/2/b/2b2074e8b08f4860d0df2af3e3be13559ffa9a76,e\6\e611f189f0ac397bf68efe41cae37afffcf69a47
+Å
+Q.idea/sonarlint/securityhotspotstore/2/b/2b2074e8b08f4860d0df2af3e3be13559ffa9a76,7\9\7967a07d84c712fdcf9bfdd79230609fb4f19879
+L
+.idea/mybatisx/templates.xml,7\a\7a8e46cfbd72943a56408813f04fd21d4a0ad1f6

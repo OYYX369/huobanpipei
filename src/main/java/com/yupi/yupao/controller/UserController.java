@@ -38,9 +38,10 @@ public class UserController {
     private UserService userService;
 
 
+
     @GetMapping("/search")
     public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request) {
-        if (!isAdmin(request)) {
+        if (!userService.isAdmin(request)) {
 //            return ResultUtils.error(ErrorCode.NO_AUTH_ERROR);
             throw new BusinessException(ErrorCode.NO_AUTH, "缺少管理员权限");
         }
@@ -137,11 +138,22 @@ public class UserController {
     }
 
 
-
+    @PostMapping("/update")
+    public BaseResponse<Integer> updateUser(@RequestBody User user, HttpServletRequest request){
+        // 1.校验参数是否为空
+        if (user == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "提供的用户数据不能为空");
+        }
+        // 2.鉴权：验证当前请求中的用户是否具有更新所提供用户数据的权限。
+        User loginUser = userService.getLoginUser(request);
+        // 3.触发更新
+        int result = userService.updateUser(user, loginUser);
+        return ResultUtils.success(result);
+    }
 
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteUser(@RequestBody Long id , HttpServletRequest request) {
-        if (!isAdmin(request)) {
+        if (!userService.isAdmin(request)) {
             return ResultUtils.error(ErrorCode.NO_AUTH,"缺少管理员权限");
         }
         if(id <= 0) {
@@ -151,13 +163,6 @@ public class UserController {
         return ResultUtils.success(b);
     }
 
-    private boolean isAdmin(HttpServletRequest request) {
-        // 鉴权，只有管理员可以查询
-        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        User user = (User) userObj;
-        if(user == null || user.getUserRole() != ADMIN_ROLE) {
-            return false;
-        }
-        return  true;
-    }
+
+
 }
