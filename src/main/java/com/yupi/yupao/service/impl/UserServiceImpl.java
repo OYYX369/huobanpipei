@@ -249,23 +249,21 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @param loginUser 当前登录的User对象，用于进行权限验证。
      * @return 更新操作影响的数据库记录数。通常返回1表示更新成功，返回0表示未进行更新。
      * @throws BusinessException 如果用户ID无效、登录用户无权更新其他用户信息、或指定ID的用户不存在时抛出。
-     */
-    @Override
-    public int updateUser(User user,User loginUser) {
+     */@Override
+    public int updateUser(User user, User loginUser){
         long userId = user.getId();
-        if(userId <= 0 )
-        {
+        if (userId <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        // 如果是管理员， 允许 更新 任意  用户
-        //如果不是管理员，只允许更新 自己 信息
-        if(!isAdmin(loginUser) && userId !=loginUser.getId()){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        // TODO 补充校验，如果用户没有传任何要更新的值，就直接报错，不执行 update 语句
+        // 如果是管理员，允许更新任意用户
+        // 如果不是管理员，只允许更新当前（自己的）用户
+        if (!isAdmin(loginUser) && userId != loginUser.getId()) {
+            throw new BusinessException(ErrorCode.NO_AUTH);
         }
         User oldUser = userMapper.selectById(userId);
-        if (oldUser == null )
-        {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        if (oldUser == null) {
+            throw new BusinessException(ErrorCode.NULL_ERROR);
         }
         return userMapper.updateById(user);
     }
