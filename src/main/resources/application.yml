@@ -1,7 +1,7 @@
 spring:
   # DataSource Config
   datasource:
-    url: jdbc:mysql://localhost:3306/huoban
+    url: jdbc:mysql://localhost:3306/yupao
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456

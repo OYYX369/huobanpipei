@@ -29,7 +29,7 @@ class UserServiceTest {
 
     @Test
     void userRegister() {
-        String userAccount="oyyx";
+        String userAccount="yupi";
         String userPassword="12345678";
         String checkPassword="12345678";
         String planetCode="5004";
