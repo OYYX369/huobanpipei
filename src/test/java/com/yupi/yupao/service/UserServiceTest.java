@@ -22,17 +22,17 @@ class UserServiceTest {
     @Test
     void searchUsersByTags() {
         //括号里面 字符串转换为 字符串集合
-        List<String> tagNameList= Arrays.asList("java","c++");
+        List<String> tagNameList= Arrays.asList("java","python");
         List<User> userList = userService.searchUsersByTagsSQL(tagNameList);
         Assertions.assertNotNull(userList);
     }
 
     @Test
     void userRegister() {
-        String userAccount="yupi";
+        String userAccount="wang";
         String userPassword="12345678";
         String checkPassword="12345678";
-        String planetCode="5004";
+        String planetCode="504";
         long result= userService.userRegister(userAccount,userPassword,checkPassword,planetCode);
         Assertions.assertEquals(-1,result);
 

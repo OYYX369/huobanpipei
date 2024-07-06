@@ -1,7 +1,7 @@
 spring:
   # DataSource Config
   datasource:
-    url: jdbc:mysql://localhost:3306/yupao
+    url: jdbc:mysql://localhost:3306/huoban
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
@@ -29,15 +29,14 @@ spring:
 
   #redis配置
   # session 失效时间
-  session:
-    redis:
-      repository-type: default
 
+  session:
+    store-type: redis
   data:
     redis:
       port: 6379
       host: localhost
-      database: 0
+      database: 2
 
 server:
   port: 8080

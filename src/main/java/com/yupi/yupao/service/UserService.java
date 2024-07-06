@@ -1,13 +1,10 @@
 package com.yupi.yupao.service;
 
-import com.yupi.yupao.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yupi.yupao.model.domain.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
-
-import static com.yupi.yupao.contant.UserConstant.ADMIN_ROLE;
-import static com.yupi.yupao.contant.UserConstant.USER_LOGIN_STATE;
 
 /**
  * @author 13303

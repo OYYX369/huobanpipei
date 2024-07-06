@@ -1,9 +1,5 @@
 
-~	java:S125-"<This block of commented-out lines of code should be removed.(°İ“÷8ÈÂ‚Ö„2J$743dec4e-a370-4a95-a9b9-2d1e83100371
-Â
-java:S62045"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(«¨•ïşÿÿÿÿ8¦ºÄ•…2J$01629bd0-62cc-4b0c-9a29-bba394da8498
-ƒ	java:S125K"<This block of commented-out lines of code should be removed.(äÚ«Ãÿÿÿÿÿ8¼ÜÆü„2J$857b75a1-63cb-4579-89c0-7fc8b9240f73
-z
-java:S1135{"2Complete the task associated to this TODO comment.(öÔå«úÿÿÿÿ8ÀÜÆü„2J$db0e198d-3e6c-4d3e-81d0-f6c09db92718
-“
-java:S1128"KRemove this unused import 'com.yupi.yupao.contant.UserConstant.ADMIN_ROLE'.(í€ŒÂÿÿÿÿÿ8°ºÄ•…2J$54e35cef-f857-41d9-b6a4-5b9a2f847f26
+~	java:S125P"<This block of commented-out lines of code should be removed.(°İ“÷8İãºä‡2J$afac9192-3fc0-4008-976b-4066527d31e6
+ƒ	java:S125n"<This block of commented-out lines of code should be removed.(äÚ«Ãÿÿÿÿÿ8àãºä‡2J$274daaa0-03e6-45de-a580-c12426cc992d
+{
+java:S1135"2Complete the task associated to this TODO comment.(öÔå«úÿÿÿÿ8äãºä‡2J$99c49b95-70c8-4791-816f-f33510245d84

@@ -1,34 +1,36 @@
 
 
-java:S1104-"\Make USER_LOGIN_STATE a static final constant or non-public and provide accessors if needed.(†ö§8É¤Ê”…2J$23f5ccd0-1919-452b-9bd2-0310ca5fa431
-œ	java:S116-"[Rename this field "USER_LOGIN_STATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†ö§8Ü¤Ê”…2J$7fb1e892-f283-42a9-9969-2907da5c8130
+java:S1104-"\Make USER_LOGIN_STATE a static final constant or non-public and provide accessors if needed.(†ö§8É¤Ê”…2J$b51d6c80-88e0-445a-96a8-5fc11f344e77
+œ	java:S116-"[Rename this field "USER_LOGIN_STATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†ö§8Ü¤Ê”…2J$9456433f-7e06-43e6-a145-9fb1ad02ca07
 u
-java:S11356"2Complete the task associated to this TODO comment.(…ïœ†8à¤Ê”…2J$729e5dc8-c400-4cd9-b188-29d032acca31
+java:S11356"2Complete the task associated to this TODO comment.(…ïœ†8à¤Ê”…2J$ba2cb26a-1bba-4a8b-8f0e-ee2cb3259887
 r
-java:S5869C"*Remove duplicates in this character class.(”’ø¨ùÿÿÿÿ8â¤Ê”…2J$d1c18d2e-54df-4a49-b842-1e7fead5062d
+java:S5869C"*Remove duplicates in this character class.(”’ø¨ùÿÿÿÿ8â¤Ê”…2J$236a95c8-e6cd-4b55-9958-eeb98957cd18
 x
-java:S6035C"0Replace this alternation with a character class.(”’ø¨ùÿÿÿÿ8ã¤Ê”…2J$2a8a4434-e0c9-46b1-bc3d-44fac5f75432
+java:S6035C"0Replace this alternation with a character class.(”’ø¨ùÿÿÿÿ8ã¤Ê”…2J$7a52ea47-9beb-44c0-9c28-5aebc98d753d
 }
-java:S6397C"5Replace this character class by the character itself.(”’ø¨ùÿÿÿÿ8ä¤Ê”…2J$9957cefc-58c6-45d3-ba47-647160c77ae5
+java:S6397C"5Replace this character class by the character itself.(”’ø¨ùÿÿÿÿ8ä¤Ê”…2J$206dd213-220c-4ba2-9c65-2c33e2e85461
 u
-java:S1135n"2Complete the task associated to this TODO comment.(’‡ÆÚ8æ¤Ê”…2J$a570dffa-f5f6-49d7-957c-5f2377f6f7ec
+java:S1135n"2Complete the task associated to this TODO comment.(’‡ÆÚ8æ¤Ê”…2J$a20e2448-3af0-41bc-9ef5-929cbf3c207b
 r
-java:S5869x"*Remove duplicates in this character class.(”’ø¨ùÿÿÿÿ8ç¤Ê”…2J$f0b0419e-da72-4b86-afc5-b626913de2eb
+java:S5869x"*Remove duplicates in this character class.(”’ø¨ùÿÿÿÿ8ç¤Ê”…2J$7a2ead1a-26b1-435f-921d-adc3d009e51f
 x
-java:S6035x"0Replace this alternation with a character class.(”’ø¨ùÿÿÿÿ8ç¤Ê”…2J$13a9f2b5-0cde-430a-b7ac-605de74f2d71
+java:S6035x"0Replace this alternation with a character class.(”’ø¨ùÿÿÿÿ8ç¤Ê”…2J$13624f36-c96b-458c-950e-7172ab2397b3
 }
-java:S6397x"5Replace this character class by the character itself.(”’ø¨ùÿÿÿÿ8ç¤Ê”…2J$86580be4-6cea-469e-9704-59b0e335403d
+java:S6397x"5Replace this character class by the character itself.(”’ø¨ùÿÿÿÿ8ç¤Ê”…2J$a5bb0fab-0482-42a2-8978-6a7784ed88d7
 ¾
-java:S6204ã"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ğÁÜÖ8ì¤Ê”…2J$48dfe229-aa72-4a35-a358-5083be167722
+java:S6204ã"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ğÁÜÖ8ì¤Ê”…2J$a77530ec-7e9e-463e-9436-d35174d7b5ff
+v
+java:S1135‚"2Complete the task associated to this TODO comment.(’É8Øˆ¾¢…2J$4f4391e4-7124-4e40-ac53-d085155a60a3
 …
-java:S1126—"AReplace this if-then-else statement by a single return statement.(ˆÿø¹8ğ¤Ê”…2J$6ca1ff96-1fd4-4d16-9c86-c957dda01a2f
+java:S1126•"AReplace this if-then-else statement by a single return statement.(ˆÿø¹8ğ¤Ê”…2J$a897160b-8726-41a8-9fd0-dbeb1bcaaf67
 „
-java:S1126¤"AReplace this if-then-else statement by a single return statement.(•ª–O8ñ¤Ê”…2J$f09767ff-ba88-427e-a61b-1d7531a0f23a
+java:S1126¢"AReplace this if-then-else statement by a single return statement.(•ª–O8ñ¤Ê”…2J$e4ba97eb-a4fa-42b3-a8f0-d4cc37dd26df
 Œ
-java:S6355ª"HAdd 'since' and/or 'forRemoval' arguments to the @Deprecated annotation.(õˆúš8ñ¤Ê”…2J$b986a238-dd1d-407a-8ece-85cba8ccffd6
+java:S6355¨"HAdd 'since' and/or 'forRemoval' arguments to the @Deprecated annotation.(õˆúš8ñ¤Ê”…2J$b33204bc-7f71-44b0-b752-a680a8b77897
 y
-java:S1133«"5Do not forget to remove this deprecated code someday.(¬…Ñä8ñ¤Ê”…2J$949d9a95-b02c-4ff7-b5f2-22e7dc1e9b39
+java:S1133©"5Do not forget to remove this deprecated code someday.(¬…Ñä8ñ¤Ê”…2J$80bdcd8a-5752-4148-9eb4-0eb901a94a34
 l
-java:S1123«"(Add the missing @deprecated Javadoc tag.(¬…Ñä8ò¤Ê”…2J$95fc6f44-7846-411a-ad3c-046b650c6dfd
+java:S1123©"(Add the missing @deprecated Javadoc tag.(¬…Ñä8ò¤Ê”…2J$78637660-0bb6-46fa-8ba5-2df1c2357ca9
 Ã
-java:S6204¶"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(Ìşóìøÿÿÿÿ8ó¤Ê”…2J$e3a251ec-022c-4ae6-929e-86c112ba2708
+java:S6204´"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(Ìşóìøÿÿÿÿ8ó¤Ê”…2J$03948b87-49cd-401c-ada6-94c807512f2f

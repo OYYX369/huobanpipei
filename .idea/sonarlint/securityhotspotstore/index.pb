@@ -124,3 +124,21 @@ G.idea/sonarlint/issuestore/2/b/2b2074e8b08f4860d0df2af3e3be13559ffa9a76,e\6\e6
 Q.idea/sonarlint/securityhotspotstore/2/b/2b2074e8b08f4860d0df2af3e3be13559ffa9a76,7\9\7967a07d84c712fdcf9bfdd79230609fb4f19879
 L
 .idea/mybatisx/templates.xml,7\a\7a8e46cfbd72943a56408813f04fd21d4a0ad1f6
+g
+7src/main/java/com/yupi/yupao/easyexcel/ImportExcel.java,1\7\17539b85714a81857d273dd09d34eaf5e19b61f0
+f
+6src/main/java/com/yupi/yupao/easyexcel/InsertUser.java,d\2\d281af8d342ad22e88280f958898bcbd9ef7789a
+j
+:src/main/java/com/yupi/yupao/config/MybatisPlusConfig.java,1\f\1f61e49e1302e16a9f78fa1ec13c8c73bcd91f8f
+[
++src/test/java/com/yupi/yupao/RedisTest.java,a\8\a82f358865b02254739dad7d78179fdec68d22f1
+l
+<src/main/java/com/yupi/yupao/config/RedisTemplateConfig.java,0\b\0b1d6b45216d3a232cc4f11ebedbffbd935f7f0d
+a
+1src/main/java/com/yupi/yupao/job/PreCacheJob.java,a\e\ae9ee755efbee7af4ad75441ed145b8516da7c1e
+g
+7src/main/java/com/yupi/yupao/config/RedissonConfig.java,6\d\6d79512be538583c77e2b6b0e9626f687b42adea
+f
+6src/test/java/com/yupi/yupao/service/RedissonTest.java,5\c\5c0ea69c1859855f0ad8beaa172689cbf4ff76a0
+^
+.src/test/java/com/yupi/yupao/RedissonTest.java,2\6\2667255af9f920b01f2d5641fec14ec0b9c67395
