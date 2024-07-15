@@ -1,4 +1,4 @@
-package com.yupi.yupao.model.domain.request;
+package com.yupi.yupao.model.request;
 
 
 import lombok.Data;
@@ -13,14 +13,7 @@ import java.io.Serializable;
  * @apiNote
  * @Version: v1.0
  */
-/**
- * 用户登录请求体
- * @author Hsu琛君珩
- * @ClassName:UserLoginRequest
- * @date 2024-03-13
- * @apiNote
- * @Version: v1.0
- */
+
 @Data
 public class UserLoginRequest implements Serializable {
 

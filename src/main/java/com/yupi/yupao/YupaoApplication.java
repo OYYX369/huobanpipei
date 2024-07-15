@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan("com.yupi.yupao.mapper")
 @EnableScheduling
 public class YupaoApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(YupaoApplication.class, args);
     }
