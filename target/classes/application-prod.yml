@@ -1,15 +1,50 @@
 spring:
   # DataSource Config
   datasource:
-    url: jdbc:mysql://43.136.88.58:3306/user_center?useSSL=false
+    url: jdbc:mysql://43.139.79.107:3306/huoban?useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ousir
-    password: ousir666
-  session:
-    timeout: 86400
+    username: huoban
+    password: huoban666
+
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  #  profiles:
+  #    active: dev
+  application:
+    name: yupao-backend-backend
+
+  #redis配置
+  # session 失效时间
+
+
+  data:
+    redis:
+      port: 6379
+      host:  43.139.79.107
+      #    43.139.79.107
+      database: 1
+      password: 123456
 
 server:
   address: 0.0.0.0
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        domain:  43.139.79.107
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+springdoc:
+  # 默认是false，需要设置为true 解决参数值显示问题https://doc.xiaominfo.com/docs/faq/v4/knife4j-parameterobject-flat-param
+  default-flat-param-object: true
 

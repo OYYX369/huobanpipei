@@ -1,2 +1,5 @@
+com\yupi\yupao\RedissonTest.class
+com\yupi\yupao\AlgorithmUtilsTest.class
+com\yupi\yupao\InsertUserTest.class
 com\yupi\yupao\service\UserServiceTest.class
-com\yupi\yupao\service\impl\UserServiceImplTest.class
+com\yupi\yupao\RedisTest.class

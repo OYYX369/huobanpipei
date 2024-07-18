@@ -33,6 +33,7 @@ import static com.yupi.yupao.contant.UserConstant.USER_LOGIN_STATE;
 
 @RestController
 @RequestMapping("/user")
+//跨域接受     前端的地址是什么
 @CrossOrigin(origins = {"http://localhost:5173/"}, allowCredentials = "true")
 @Slf4j
 public class UserController {

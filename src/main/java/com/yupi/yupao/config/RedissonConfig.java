@@ -35,7 +35,7 @@ public class RedissonConfig {
         // 拼接Redis地址
         String redisAddress = String.format("redis://%s:%s", host, port);
         //  使用单个Redis，没有开集群 useClusterServers()  设置地址和使用库
-        config.useSingleServer().setAddress(redisAddress).setDatabase(3);// 写到库3
+        config.useSingleServer().setAddress(redisAddress).setDatabase(1);// 写到库3
         // 2. 创建实例ou
         RedissonClient redisson = Redisson.create(config);
         return redisson;

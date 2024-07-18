@@ -9,21 +9,24 @@ import com.yupi.yupao.common.ResultUtils;
 import com.yupi.yupao.exception.BusinessException;
 import com.yupi.yupao.model.domain.Team;
 import com.yupi.yupao.model.domain.User;
+import com.yupi.yupao.model.domain.UserTeam;
 import com.yupi.yupao.model.dto.TeamQuery;
-import com.yupi.yupao.model.request.TeamAddRequest;
-import com.yupi.yupao.model.request.TeamJoinRequest;
-import com.yupi.yupao.model.request.TeamQuitRequest;
-import com.yupi.yupao.model.request.TeamUpdateRequest;
+import com.yupi.yupao.model.request.*;
 import com.yupi.yupao.model.vo.TeamUserVO;
 import com.yupi.yupao.service.TeamService;
 import com.yupi.yupao.service.UserService;
+import com.yupi.yupao.service.UserTeamService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -43,15 +46,36 @@ public class TeamController {
     private TeamService teamService;
 
 
+    @Resource
+    private UserTeamService userTeamService;
+
+
+    /**
+     * 获取最匹配的用户
+     *
+     * @param num
+     * @param request
+     * @return
+     */
+    @GetMapping("/match")
+    public BaseResponse<List<User>> matchUsers(long num, HttpServletRequest request) {
+        if (num <= 0 || num > 20) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User user = userService.getLoginUser(request);
+        return ResultUtils.success(userService.matchUsers(num, user));
+    }
+
     /*
        队长删除队伍
      */
     @PostMapping("/delete")
-    public BaseResponse<Boolean> deleteTeam(@RequestBody Long id , HttpServletRequest request) {
+    public BaseResponse<Boolean> deleteTeam(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         //检查队伍id合法性
-        if(id <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR,"无效的队伍id");
+        if(deleteRequest ==null || deleteRequest.getId() <=0 ) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        long id = deleteRequest.getId();
        //获取当前登录用户信息
         User loginUser = userService.getLoginUser(request);
         //执行删除操作
@@ -59,7 +83,7 @@ public class TeamController {
         if(!result){
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"删除失败");
         }
-        return ResultUtils.success(result);
+        return ResultUtils.success(true);
     }
 
 
@@ -188,6 +212,82 @@ public class TeamController {
         boolean isAdmin = userService.isAdmin(request);
         // 调用队伍服务查询队伍列表
         List<TeamUserVO> teamList = teamService.listTeams(teamQuery, isAdmin);
+        // 从返回的队伍列表中提取队伍ID
+        final List<Long> teamIdList = teamList.stream().map(TeamUserVO::getId).collect(Collectors.toList());
+        // 查询当前登录用户已加入的队伍
+        QueryWrapper<UserTeam> userTeamQueryWrapper = new QueryWrapper<>();
+        try {
+            User loginUser = userService.getLoginUser(request);
+            userTeamQueryWrapper.eq("userId", loginUser.getId());
+            userTeamQueryWrapper.in("teamId", teamIdList);
+            List<UserTeam> userTeamList = userTeamService.list(userTeamQueryWrapper);
+            // 获取已加入队伍的ID集合
+            Set<Long> hasJoinTeamIdSet = userTeamList.stream().map(UserTeam::getTeamId).collect(Collectors.toSet());
+            // 标注每个队伍对象用户是否已加入
+            teamList.forEach(team -> {
+                boolean hasJoin = hasJoinTeamIdSet.contains(team.getId());
+                team.setHasJoin(hasJoin);
+            });
+        } catch (Exception e) {
+            // 异常处理，此处省略具体实现
+        }
+        // 3、查询已加入队伍的人数
+        QueryWrapper<UserTeam> userTeamJoinQueryWrapper = new QueryWrapper<>();
+        userTeamJoinQueryWrapper.in("teamId", teamIdList);
+        List<UserTeam> userTeamList = userTeamService.list(userTeamJoinQueryWrapper);
+        // 队伍 id => 加入这个队伍的用户列表
+        Map<Long, List<UserTeam>> teamIdUserTeamList = userTeamList.stream().collect(Collectors.groupingBy(UserTeam::getTeamId));
+        teamList.forEach(team -> team.setHasJoinNum(teamIdUserTeamList.getOrDefault(team.getId(), new ArrayList<>()).size()));
+        return ResultUtils.success(teamList);
+    }
+    /**
+     * 获取当前用户创建的队伍列表。
+     * 此接口根据当前登录用户的 ID 和提供的查询条件来检索队伍列表。
+     * 如果当前用户是管理员，可以检索到更广泛的数据。
+     * @param teamQuery 查询条件，包括可以筛选的各种字段。
+     * @param request HTTP请求对象，用于获取当前请求的用户会话。
+     * @return 返回当前用户创建的队伍列表的统一响应结构。
+     * @throws BusinessException 当请求参数为 null 或其他业务规则不满足时抛出。
+     */
+    @GetMapping("/list/my/create")
+    public BaseResponse<List<TeamUserVO>> listMyCreateTeams(TeamQuery teamQuery, HttpServletRequest request){
+        // 参数校验，确保传入的查询条件不为null
+        if(teamQuery == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 从会话中获取当前登录的用户信息
+        User loginUser = userService.getLoginUser(request);
+        // 设置查询条件中的用户ID为当前登录用户的ID，以确保只查询当前用户创建的队伍
+        teamQuery.setUserId(loginUser.getId());
+        // 调用服务层方法，传入查询条件和是否管理员标志，获取符合条件的队伍列表
+        List<TeamUserVO> teamList = teamService.listTeams(teamQuery, true);
+        // 封装并返回查询结果
+        return ResultUtils.success(teamList);
+    }
+
+    /**
+     * 获取我加入的队伍
+     *
+     * @param teamQuery
+     * @param request
+     * @return
+     */
+    @GetMapping("/list/my/join")
+    public BaseResponse<List<TeamUserVO>> listMyJoinTeams(TeamQuery teamQuery, HttpServletRequest request) {
+        if (teamQuery == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User loginUser = userService.getLoginUser(request);
+        QueryWrapper<UserTeam> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userId", loginUser.getId());
+        List<UserTeam> userTeamList = userTeamService.list(queryWrapper);
+        // 取出不重复的队伍 id
+        // teamId userId
+        Map<Long, List<UserTeam>> listMap = userTeamList.stream()
+                .collect(Collectors.groupingBy(UserTeam::getTeamId));
+        List<Long> idList = new ArrayList<>(listMap.keySet());
+        teamQuery.setIdList(idList);
+        List<TeamUserVO> teamList = teamService.listTeams(teamQuery, true);
         return ResultUtils.success(teamList);
     }
 

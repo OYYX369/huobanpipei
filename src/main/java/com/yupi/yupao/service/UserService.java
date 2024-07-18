@@ -64,6 +64,5 @@ public interface UserService extends IService<User> {
     List<User> searchUsersByTagsSQL(List<String> tagNameList);
 
 
-
-
+    List<User> matchUsers(long num, User user);
 }
