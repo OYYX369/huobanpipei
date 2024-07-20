@@ -1,19 +1,19 @@
 {
   "groups": [
     {
-      "name": "spring.data.redis",
+      "name": "spring.redis",
       "type": "com.yupi.yupao.config.RedissonConfig",
       "sourceType": "com.yupi.yupao.config.RedissonConfig"
     }
   ],
   "properties": [
     {
-      "name": "spring.data.redis.host",
+      "name": "spring.redis.host",
       "type": "java.lang.String",
       "sourceType": "com.yupi.yupao.config.RedissonConfig"
     },
     {
-      "name": "spring.data.redis.port",
+      "name": "spring.redis.port",
       "type": "java.lang.String",
       "sourceType": "com.yupi.yupao.config.RedissonConfig"
     }

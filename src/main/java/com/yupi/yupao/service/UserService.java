@@ -2,8 +2,8 @@ package com.yupi.yupao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yupi.yupao.model.domain.User;
-import jakarta.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

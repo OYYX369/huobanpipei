@@ -10,7 +10,6 @@ import com.yupi.yupao.exception.BusinessException;
 import com.yupi.yupao.mapper.UserMapper;
 import com.yupi.yupao.model.domain.User;
 import com.yupi.yupao.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Pair;
@@ -19,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -142,10 +142,43 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         //   4.记录用户的登录状态
         request.getSession().setAttribute(USER_LOGIN_STATE, safetyUser);
+        Object attributeObj = request.getSession().getAttribute(USER_LOGIN_STATE);
 
+
+//        Object attributeObj = request.getSession().getAttribute("myAttribute");
+        if (attributeObj != null) {
+            if (attributeObj instanceof String) {
+                String attributeValue = (String) attributeObj;
+                // 处理字符串类型的属性值
+                System.out.println("Value of myAttribute (String): " + attributeValue);
+            } else if (attributeObj instanceof User) {
+                User user1 = (User) attributeObj;
+                // 处理User对象类型的属性值
+                System.out.println("User object retrieved from session: " + user1.getUsername());
+            } else {
+                // 处理其他未知类型
+                System.out.println("Unexpected type for attribute 'myAttribute'");
+            }
+        } else {
+            System.out.println("Attribute 'myAttribute' is null.");
+        }
+
+//        System.out.println((String) attributeValue);
         return safetyUser;
     }
 
+    @Override
+    public User getLoginUser(HttpServletRequest request) {
+        if(request == null){
+            return null;
+        }
+        Object object =request.getSession().getAttribute(USER_LOGIN_STATE);
+        if(object == null)
+        {
+            throw new BusinessException(ErrorCode.NO_AUTH);
+        }
+        return (User) object;
+    }
 
     /**
      * 用户脱敏
@@ -226,18 +259,7 @@ public class    UserServiceImpl extends ServiceImpl<UserMapper, User>
         }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
-    @Override
-    public User getLoginUser(HttpServletRequest request) {
-        if(request == null){
-            return null;
-        }
-        Object object =request.getSession().getAttribute(USER_LOGIN_STATE);
-        if(object == null)
-        {
-            throw new BusinessException(ErrorCode.NO_AUTH);
-        }
-        return (User) object;
-    }
+
 
     /**
      * 更新用户信息。

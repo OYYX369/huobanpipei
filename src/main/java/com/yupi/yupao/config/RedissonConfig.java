@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @Version: v1.0
  */
 @Configuration
-@ConfigurationProperties(prefix = "spring.data.redis")   // 用于将配置文件中以特定前缀开头的属性值映射到一个Java Bean 中。
+@ConfigurationProperties(prefix = "spring.redis")   // 用于将配置文件中以特定前缀开头的属性值映射到一个Java Bean 中。
 @Data
 public class RedissonConfig {
 
@@ -35,10 +35,13 @@ public class RedissonConfig {
         // 拼接Redis地址
         String redisAddress = String.format("redis://%s:%s", host, port);
         //  使用单个Redis，没有开集群 useClusterServers()  设置地址和使用库
-        config.useSingleServer().setAddress(redisAddress).setDatabase(1);// 写到库3
+        config.useSingleServer()
+                .setAddress(redisAddress)
+                .setDatabase(2)
+                .setPassword("123456");    // 写到库3
         // 2. 创建实例ou
-        RedissonClient redisson = Redisson.create(config);
-        return redisson;
+        return Redisson.create(config);
     }
 
 }
+

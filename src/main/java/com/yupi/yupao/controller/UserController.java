@@ -12,7 +12,6 @@ import com.yupi.yupao.model.domain.User;
 import com.yupi.yupao.model.request.UserLoginRequest;
 import com.yupi.yupao.model.request.UserRegisterRequest;
 import com.yupi.yupao.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +19,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -43,6 +43,30 @@ public class UserController {
 
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
+
+
+
+    /**
+     *
+     *
+     * @param userLoginRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/login")
+    public BaseResponse<User> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request){
+        if(userLoginRequest==null){
+            return null;
+        }
+        String userAccount=userLoginRequest.getUserAccount();
+        String userPassword=userLoginRequest.getUserPassword();
+        if(StringUtils.isAnyBlank(userAccount,userPassword)){
+            return null;
+        }
+        User user = userService.userLogin(userAccount, userPassword, request);
+        return ResultUtils.success(user);
+    }
+
     /**
      *    推荐用户列表接口。
      *   该接口不进行权限校验，向所有请求者推荐用户列表。
@@ -121,26 +145,7 @@ public class UserController {
         //返回自己封装的信息
     }
 
-    /**
-     *
-     *
-     * @param userLoginRequest
-     * @param request
-     * @return
-     */
-    @PostMapping("/login")
-    public BaseResponse<User> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request){
-        if(userLoginRequest==null){
-            return null;
-        }
-        String userAccount=userLoginRequest.getUserAccount();
-        String userPassword=userLoginRequest.getUserPassword();
-        if(StringUtils.isAnyBlank(userAccount,userPassword)){
-            return null;
-        }
-        User user = userService.userLogin(userAccount, userPassword, request);
-        return ResultUtils.success(user);
-    }
+
     /**
      * 获取当前用户
      * @param request

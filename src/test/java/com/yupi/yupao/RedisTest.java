@@ -1,18 +1,16 @@
 package com.yupi.yupao;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import redis.clients.jedis.Jedis;
 
 @SpringBootTest
 public class RedisTest {
 
-        @Test
-        public static void main(String[] args) {
-            Jedis jedis = new Jedis("43.139.79.107",6379);
-            jedis.auth("123456");					// redis密码
-            System.out.println(jedis.ping());	// 结果输出应该为：PONG
-        }
+//        @Test
+//        public static void main(String[] args) {
+//            Jedis jedis = new Jedis("43.139.79.107",6379);
+//            jedis.auth("123456");					// redis密码
+//            System.out.println(jedis.ping());	// 结果输出应该为：PONG
+//        }
 
     //
 //    @Resource

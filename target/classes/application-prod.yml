@@ -17,14 +17,23 @@ spring:
   #redis配置
   # session 失效时间
 
+  session:
+    timeout: 86400
+    store-type: redis
+  redis:
+    host: 43.139.79.107
+    port: 6379
+    database:  2
+    password: 123456
 
-  data:
-    redis:
-      port: 6379
-      host:  43.139.79.107
-      #    43.139.79.107
-      database: 1
-      password: 123456
+#  data:
+#    redis:
+#      port: 6379
+#      host: 43.139.79.107
+##    43.139.79.107
+#      database: 1
+#      password: 123456
+
 
 server:
   address: 0.0.0.0
@@ -33,7 +42,8 @@ server:
     context-path: /api
     session:
       cookie:
-        domain:  43.139.79.107
+        domain: localhost
+#domain是设置  前端地址
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
